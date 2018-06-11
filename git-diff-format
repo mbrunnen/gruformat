@@ -82,11 +82,13 @@ def main():
         help='Arguments forwarded to the formatter')
     args = parser.parse_args()
 
-    if args.FORMATTER[0] == 'yapf3':
-        formatter = CodeFormatter('yapf3', '--lines {:d}-{:d}', args.options)
-    elif args.FORMATTER[0] == 'clang-format':
+    if args.FORMATTER[0] == 'clang-format':
         formatter = CodeFormatter('clang-format', '-lines={:d}:{:d}',
                                   args.options)
+    elif args.FORMATTER[0] == 'yapf':
+        formatter = CodeFormatter('yapf', '--lines {:d}-{:d}', args.options)
+    elif args.FORMATTER[0] == 'yapf3':
+        formatter = CodeFormatter('yapf3', '--lines {:d}-{:d}', args.options)
     else:
         print("Formatter {} not implemented".format(args.FORMATTER[0]))
         sys.exit(78)
