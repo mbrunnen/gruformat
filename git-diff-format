@@ -6,6 +6,7 @@ import re
 import subprocess
 import sys
 import io
+import shlex
 
 
 class CodeFormatter(object):
@@ -30,6 +31,7 @@ class CodeFormatter(object):
 
             command.extend(line_args)
             command.append(filename)
+            command = shlex.split(' '.join(command))
 
             if not dryrun:
                 with subprocess.Popen(
