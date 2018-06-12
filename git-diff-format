@@ -85,10 +85,13 @@ def main():
     if args.FORMATTER[0] == 'clang-format':
         formatter = CodeFormatter('clang-format', '-lines={:d}:{:d}',
                                   args.options)
+        supported_files = r'.*\.(cpp|cc|c\+\+|cxx|c|cl|h|hpp|m|mm|inc|js|ts|proto|protodevel|java)'
     elif args.FORMATTER[0] == 'yapf':
         formatter = CodeFormatter('yapf', '--lines {:d}-{:d}', args.options)
+        supported_files = r'.*\.(py)'
     elif args.FORMATTER[0] == 'yapf3':
         formatter = CodeFormatter('yapf3', '--lines {:d}-{:d}', args.options)
+        supported_files = r'.*\.(py)'
     else:
         print("Formatter {} not implemented".format(args.FORMATTER[0]))
         sys.exit(78)
@@ -102,6 +105,8 @@ def main():
         if match:
             filename = match.group(2)
         if filename is None:
+            continue
+        if not re.match('^%s$' % supported_files, filename, re.IGNORECASE):
             continue
 
         match = re.search(r'^@@.*\+(\d+)(,(\d+))?', line)
