@@ -62,7 +62,11 @@ class CodeFormatter(object):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Wrapper in order to pipe git diffs to a formatter.')
+        description=
+        'Wrapper in order to pipe git diffs to a formatter. E.g.: git diff '
+        '-U0 --no-color HEAD -- /path/to/file.py | python3 git-format-diff.py '
+        'yapf -p1 -i')
+
     parser.add_argument(
         '-i',
         action='store_true',
